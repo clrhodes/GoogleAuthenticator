@@ -1,5 +1,5 @@
 {
-    "name": "sonata-project/google-authenticator",
+    "name": "clrhodes/google-authenticator",
     "description": "Library to integrate Google Authenticator into a PHP project",
     "keywords": ["google authenticator"],
     "homepage": "https://github.com/sonata-project/GoogleAuthenticator",
@@ -17,6 +17,10 @@
         {
             "name": "Andre DeMarre",
             "homepage": "http://www.devnetwork.net/viewtopic.php?f=50&t=94989"
+        },
+        {
+            "name": "Christopher Rhodes",
+            "email": "clrhodes@gmail.com"
         }
 
     ],
