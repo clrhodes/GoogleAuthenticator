@@ -95,18 +95,19 @@ class GoogleAuthenticator
     }
 
     /**
-     * @param string $user
-     * @param string $hostname
-     * @param string $secret
-     *
+     * @param  string $issuer
+     * @param  string $user
+     * @param  string $hostname
+     * @param  string $secret
      * @return string
      */
-    public function getUrl($user, $hostname, $secret)
+    public function getUrl($issuer, $user, $hostname, $secret)
     {
-        $encoder = 'https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=';
-        $encoderURL = sprintf('%sotpauth://totp/%s@%s%%3Fsecret%%3D%s', $encoder, $user, $hostname, $secret);
+        $encoder = "https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=";
+        $encoderURL = sprintf("otpauth://totp/%s@%s?issuer=%s&secret=%s",
+            $user, $hostname, urlencode($issuer), $secret);
 
-        return $encoderURL;
+        return $encoder . rawurlencode($encoderURL);
     }
 
     /**
