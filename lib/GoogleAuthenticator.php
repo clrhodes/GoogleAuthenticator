@@ -95,19 +95,25 @@ class GoogleAuthenticator
     }
 
     /**
-     * @param  string $issuer
      * @param  string $user
      * @param  string $hostname
      * @param  string $secret
+     * @param  null string $label
+     * @param  null string $issuer
      * @return string
      */
-    public function getUrl($issuer, $user, $hostname, $secret)
+    public function getUrl($user, $hostname, $secret, $label = null, $issuer = null)
     {
         $encoder = "https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=";
-        $encoderURL = sprintf("otpauth://totp/%s@%s?issuer=%s&secret=%s",
-            $user, $hostname, urlencode($issuer), $secret);
 
-        return $encoder . rawurlencode($encoderURL);
+        // If either issuer or label are set; set them equal
+        if (!$issuer && $label) $issuer = $label;
+        if (!$label && $issuer) $label = $issuer;
+
+        $encoderURL = sprintf("otpauth://totp/%s:%s@%s?issuer=%s&secret=%s",
+            rawurlencode($label), $user, $hostname, rawurlencode($issuer), $secret);
+
+        return $encoder . urlencode($encoderURL);
     }
 
     /**
